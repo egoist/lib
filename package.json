@@ -1,0 +1,23 @@
+{
+  "name": "3rd",
+  "version": "1.0.0",
+  "description": "Cloud code project for 3rd. Cloud Code Guide: https://cn.avoscloud.com/docs/cloud_code_guide.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AprilOrange/3rd.git"
+  },
+  "author": "touka <i@touka.me> (http://touka.me)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AprilOrange/3rd/issues"
+  },
+  "homepage": "https://github.com/AprilOrange/3rd",
+  "dependencies": {
+    "express": "^3.4.x",
+    "unidecode": "^0.1.7"
+  }
+}
