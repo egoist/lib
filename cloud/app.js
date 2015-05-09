@@ -14,7 +14,7 @@ app.get('/hello', function(req, res) {
 
 app.post('/slug', function(req, res) {
   var string = req.body.string;
-  var slug = require('./slug');
+  var slug = require(__dirname + '/slug');
   var result = slug(string);
   res.json({
     string: string,
