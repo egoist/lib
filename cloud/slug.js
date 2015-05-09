@@ -15,4 +15,4 @@ var slug = function(string) {
   return string;
 }
 
-modules.exports = slug;
+module.exports = slug;
