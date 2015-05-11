@@ -23,4 +23,12 @@ app.post('/slug', function(req, res) {
 })
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
-app.listen();
+var port = process.env.THIRD_PORT;
+
+if (port) {
+  app.listen(port, function() {
+    console.log('http://localhost:' + port);
+  });
+} else {
+  app.listen();
+}
