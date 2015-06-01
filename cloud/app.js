@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var webshot = require('webshot');
-var argv = require('minimist')(process.argv.slice(2));
+//var argv = require('minimist')(process.argv.slice(2));
 // App 全局配置
 app.set('views','cloud/views');   // 设置模板目录
 app.set('view engine', 'ejs');    // 设置 template 引擎
@@ -38,11 +38,5 @@ app.post('/html/to/image', function(req, res) {
 })
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
-var port = argv.port;
-if (port) {
-  app.listen(port, function() {
-    console.log('http://localhost:' + port);
-  });
-} else {
-  app.listen();
-}
+
+app.listen();
