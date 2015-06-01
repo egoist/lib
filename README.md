@@ -1,6 +1,6 @@
-# 3rd
+# library
 
-Lean cloud driven: http://3rd.avosapps.com
+Lean cloud driven: http://lib.avosapps.com
 
 ## Slugify unicode string
 
