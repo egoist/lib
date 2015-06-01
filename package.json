@@ -18,6 +18,8 @@
   "homepage": "https://github.com/AprilOrange/3rd",
   "dependencies": {
     "express": "^3.4.x",
-    "unidecode": "^0.1.7"
+    "minimist": "^1.1.1",
+    "unidecode": "^0.1.7",
+    "webshot": "^0.16.0"
   }
 }
