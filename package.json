@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/AprilOrange/3rd",
   "dependencies": {
+    "body-parser": "^1.13.3",
+    "cheerio": "^0.19.0",
     "express": "^3.4.x",
     "minimist": "^1.1.1",
-    "unidecode": "^0.1.7",
-    "webshot": "^0.16.0"
+    "superagent": "^1.2.0",
+    "unidecode": "^0.1.7"
   }
 }

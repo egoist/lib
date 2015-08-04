@@ -2,13 +2,19 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var webshot = require('webshot');
+var cheerio = require('cheerio');
+var request = require('superagent');
+var bodyParser = require('body-parser');
 
 //var argv = require('minimist')(process.argv.slice(2));
 // App 全局配置
 app.set('views', 'cloud/views'); // 设置模板目录
 app.set('view engine', 'ejs'); // 设置 template 引擎
-app.use(express.bodyParser()); // 读取请求 body 的中间件
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/', function(req, res) {
@@ -30,17 +36,37 @@ app.post('/slug', function(req, res) {
   })
 })
 
-app.post('/html/to/image', function(req, res) {
 
-  //var html = req.body.html;
-  //var data = new Date;
-  //var name = req.body.name || (date+'.png');
-  webshot('<html><body>Hello World</body></html>', {
-    siteType: 'html'
-  }, function(err, renderStream) {
-    renderStream.pipe(res);
-  });
+
+app.get('/jianshu/:userhash/posts', function(req, res) {
+  var userhash = req.params.userhash;
+  var url = 'http://www.jianshu.com/users/' + userhash + '/latest_articles';
+  request
+    .get(url)
+    .end(function(error, response) {
+      var $ = cheerio.load(response.text);
+      var list = $('.tab-content').find('.latest-notes');
+      list = parseList($, list);
+      var result = {
+        page: page,
+        posts: list
+      }
+      res.json(result);
+    })
+
+  function parseList($, list) {
+    var posts = [];
+    list.find('li').each(function() {
+      var post = {
+        title: $(this).find('.title').text(),
+        link: 'http://jianshu.com' + $(this).find('.title').find('a').attr('href')
+      }
+      posts.push(post)
+    })
+    return posts;
+  }
+
 })
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
-app.listen();
+app.listen(3000);
