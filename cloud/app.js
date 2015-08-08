@@ -1,10 +1,11 @@
 // 在 Cloud code 里初始化 Express 框架
-var express = require('express');
-var app = express();
-var fs = require('fs');
-var cheerio = require('cheerio');
-var request = require('superagent');
-var bodyParser = require('body-parser');
+var express = require('express')
+var app = express()
+var fs = require('fs')
+var cheerio = require('cheerio')
+var request = require('superagent')
+var bodyParser = require('body-parser')
+var async = require('async')
 
 //var argv = require('minimist')(process.argv.slice(2));
 // App 全局配置
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.get('/', function(req, res) {
-  res.send('3rd party by INSEKAI');
+  res.send('3rd party by INSEKAI <a href="https://github.com/aprilorange/lib">https://github.com/aprilorange/lib</a>');
 })
 app.get('/hello', function(req, res) {
   res.render('hello', {
@@ -66,6 +67,36 @@ app.get('/jianshu/:userhash/posts', function(req, res) {
     return posts;
   }
 
+})
+
+app.get('/anime/daily', function(req, res) {
+  var days = []
+  for(var i = 1; i <= 7; i++) {
+    days.push('#weekdiv' + i)
+  }
+  var animes = {}
+  var url = 'http://www.dilidili.com/'
+  
+  request
+    .get(url)
+    .end(function(error, response) {
+      var $ = cheerio.load(response.text)
+      days.forEach(function(day, index) {
+        var today = []
+        $('.week_mend').find(day).find('.week_item').each(function() {
+          var name = $(this).find('.week_item_left').text()
+          var comingEpisode = $(this).find('.week_item_right').text() || null
+          var a = {
+            name: name,
+            comingEpisode: comingEpisode
+          }
+          today.push(a)
+        })
+        animes['weekday' + index] = today
+      })
+      res.json(animes)
+      
+    })
 })
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
