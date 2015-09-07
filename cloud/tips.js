@@ -6,7 +6,9 @@ module.exports = {
     var url = 'http://tips.hackplan.com/'
     request.get(url)
       .end(function (error, response) {
-        var $ = cheerio.load(response.text)
+        var $ = cheerio.load(response.text, {
+          decodeEntities: false
+        })
         var result = {
           category: $('.body').find('.category').html(),
           tip: $('.body').find('.tip').html()
