@@ -76,7 +76,7 @@ app.get('/anime/daily', function(req, res) {
   }
   var animes = {}
   var url = 'http://www.dilidili.com/'
-  
+
   request
     .get(url)
     .end(function(error, response) {
@@ -95,9 +95,12 @@ app.get('/anime/daily', function(req, res) {
         animes['weekday' + index] = today
       })
       res.json(animes)
-      
+
     })
 })
+
+var tips = require(__dirname + '/tips')
+app.get('/tips', tips.random)
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen(3000);
