@@ -6,7 +6,7 @@ var cheerio = require('cheerio')
 var request = require('superagent')
 var bodyParser = require('body-parser')
 var async = require('async')
-
+var api = require(__dirname + '/api');
 //var argv = require('minimist')(process.argv.slice(2));
 // App 全局配置
 app.set('views', 'cloud/views'); // 设置模板目录
@@ -101,6 +101,7 @@ app.get('/anime/daily', function(req, res) {
 
 var tips = require(__dirname + '/tips')
 app.get('/tips', tips.random)
+app.get('/get/json', api.getJSON)
 
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen(3000);
